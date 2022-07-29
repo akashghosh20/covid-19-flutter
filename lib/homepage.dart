@@ -40,29 +40,30 @@ class _HomepageState extends State<Homepage> {
       appBar: appBar(),
       body: Column(
         children: [
+          _countries.isNotEmpty
+              ? DropdownButton(
+                  items: _countries.map((value) {
+                    return DropdownMenuItem(
+                        value: value['country'],
+                        child: Row(
+                          children: [
+                            Image.network(value['countyInfo']['flag']),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(value['country']),
+                          ],
+                        ));
+                  }).toList(),
+                  dropdownColor: Colors.green,
+                  onChanged: (value) {
+                    print(value);
+                  })
+              : CircularProgressIndicator(),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
-                _countries.isNotEmpty
-                    ? DropdownButton(
-                        items: _countries.map((value) {
-                          return DropdownMenuItem(
-                              value: value['country'],
-                              child: Row(
-                                children: [
-                                  Image.network(value['countyInfo']['flag']),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(value['country']),
-                                ],
-                              ));
-                        }).toList(),
-                        onChanged: (value) {
-                          print(value);
-                        })
-                    : CircularProgressIndicator(),
                 Expanded(
                     child: MyCard(
                         data: "0",
